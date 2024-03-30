@@ -10,6 +10,7 @@ import pandas as pd
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
+    verification_code = models.CharField(max_length=420,null=True,blank=True,default="")
     objects = UserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [] 

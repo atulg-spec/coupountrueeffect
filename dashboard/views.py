@@ -5,10 +5,26 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from coupontrueeffect.settings import EMAIL_HOST_USER
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
+import random
+import string
 
 User = get_user_model()
 
-# Create your views here.
+def generate_verification_code(length=60):
+    characters = string.ascii_letters + string.digits
+    attempts = 0
+    while True:
+        verification_code = ''.join(random.choice(characters) for _ in range(length))
+        if not CustomUser.objects.filter(verification_code=verification_code).exists():
+            return verification_code
+        attempts += 1
+
 def index(request):       # Index Page for further Landing Pages
     return redirect('/login')
 
@@ -30,6 +46,53 @@ def handlelogin(request):
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+
+def handlesignup(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            verification_code = generate_verification_code()
+            user.verification_code = verification_code
+            user.save()
+            subject = "Important: Confirm your email"
+            html_content = render_to_string('verification-email.html', {'verification_code': verification_code})
+            content = strip_tags(html_content)
+            email = EmailMultiAlternatives(
+                subject,
+                content ,
+                EMAIL_HOST_USER ,
+                [user.email]
+            )
+            email.attach_alternative(html_content,'text/html')
+            email.send()
+            content = "An verification link has been sent to your email. Please verify to continue."
+            return render(request,'message.html',{'content':content})
+    else:
+        form = RegistrationForm()
+    return render(request, 'signup.html', {'form': form})
+
+
+def verify_user(request,code):
+    try:
+       client = User.objects.filter(verification_code = code).first()
+       client.is_active = True
+       client.save()
+       messages.success(request,'Congratulations ! Your email has been successfully verified Please login to continue.')       
+       return redirect('/login')
+    except:
+        return redirect('/')
+
+
+def reset_password_done(request):
+    content = "An Reset Password link has been sent to your email. Please reset to continue."
+    return render(request,'message.html',{'content':content})
+
+def password_reset_complete(request):
+    messages.success(request,'Congratulations ! Your password updated successfully.')
+    return redirect('/login')
 
 @login_required
 def dashboard(request):

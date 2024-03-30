@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth import get_user_model
 from .models import *
 User = get_user_model()
@@ -7,13 +9,12 @@ User = get_user_model()
 # USER REGISTRATION AND LOGIN
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    phone_number = forms.CharField(max_length=15, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'phone_number', 'first_name', 'last_name', 'password1', 'password2']
+        fields = ['email', 'first_name', 'last_name', 'password1', 'password2']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -21,6 +22,10 @@ class RegistrationForm(UserCreationForm):
         self.fields['last_name'].widget.attrs.update({'class': 'form-control'})
         self.fields['password1'].widget.attrs.update({'class': 'form-control'})
         self.fields['password2'].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['password1'].help_text = None
+        self.fields['password2'].help_text = None
+
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -31,6 +36,21 @@ class RegistrationForm(UserCreationForm):
 class LoginForm(forms.Form):
     email = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update({'class': 'form-control'})
+
+
+
+class CustomSetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control'})
 
 
 

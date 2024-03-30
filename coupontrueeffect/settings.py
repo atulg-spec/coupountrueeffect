@@ -64,6 +64,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'coupontrueeffect.wsgi.application'
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -102,11 +121,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    'social_core.backends.facebook.FacebookOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-]
-
 
 
 # Internationalization
@@ -138,10 +152,29 @@ STATICFILES_DIRS = (
 )
 
 
-SOCIAL_AUTH_FACEBOOK_KEY = '7375994425854997'
-SOCIAL_AUTH_FACEBOOK_SECRET = '8c6a85e5ef26d094d9547c48eedc38ca'
+SOCIAL_AUTH_FACEBOOK_KEY = '*********'
+SOCIAL_AUTH_FACEBOOK_SECRET = '************'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '***********************'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '****************'
+
+
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'vediccomputer51@gmail.com'
+EMAIL_HOST_PASSWORD = 'buknewxfyfchumlq'
+EMAIL_USE_TLS = True
+
+
+
+LOGIN_URL = '/login' 
+LOGOUT_URL = '/logout' 
+LOGIN_REDIRECT_URL = '/dashboard'  
+LOGOUT_REDIRECT_URL = '/login'  

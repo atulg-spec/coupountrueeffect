@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            padding: 0px 30px;
+        }
+
+        .content {
+            padding: 20px 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #c62828;
+            color: #ffffff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #c62828;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777777;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Coupoun True Effect</h1>
+        </div>
+        <div class="content">
+            <p>Hi there,</p>
+            <p>Thanks for joining us! To get started, just click the button below to verify your email address:</p>
+            <br><br>
+            <p style="text-align: center;"><a href="https://onstock.in/verify_user/{{verification_code}}/" class="btn">Verify Email Address</a></p>
+            <p>If the button above doesn't work, you can also copy and paste the following link into your browser:</p>
+            <p style="text-align: center;"><a href="#"
+                    style="color: #c62828;">https://onstock.in/verify_user/{{verification_code}}/</a></p>
+            <p>If you didn't create an account with us, you can ignore this email and we'll pretend we never sent it 😉
+            </p>
+        </div>
+        <div class="footer">
+            <p>Have questions? Feel free to contact us at <a href="mailto:support@example.com"
+                    style="color: #c62828;">support@example.com</a></p>
+        </div>
+    </div>
+</body>
+
+</html>

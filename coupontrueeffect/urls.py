@@ -9,7 +9,7 @@ from dashboard.views import error_404_view, error_500_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('logout', auth_views.LogoutView.as_view(),name='logout'),
-    path('social-auth/', include('social_django.urls', namespace='social')),
+    path('social-auth/',include('social_django.urls', namespace='social')),
     path('', include('dashboard.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
