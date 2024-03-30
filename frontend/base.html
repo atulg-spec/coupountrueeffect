@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
+    data-assets-path="/static/assets/" data-template="vertical-menu-template-free">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>{% block title %}クーポン トゥルー エフェクト ダッシュボード{% endblock title %}</title> <!-- Translated title -->
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="/static/assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/static/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/static/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/static/assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="/static/assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="/static/assets/vendor/js/helpers.js"></script>
+
+    <script src="/static/assets/js/config.js"></script>
+</head>
+
+<body>
+    <!-- Layout wrapper -->
+    <nav class="navbar navbar-example navbar-expand-lg" style="background-color: #db3f3f; color: white;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/dashboard" style="color: white;padding-right: 15%;">クーポン トゥルー エフェクト</a>
+            <!-- Translated text -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-ex-3">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div style="display: flex;">
+                <a href="/dashboard" style="color:white; padding: 0% 1%; text-align: center;">キャンペーンリスト</a> <!-- Translated text -->
+                <a href="/campaign_effect" style="color:white; padding: 0% 1%; text-align: center;">キャンペーンリスト効果確認</a> <!-- Translated text -->
+                <a href="/order_data" style="color:white; padding: 0% 1%; text-align: center;">注文データの登録/更新</a> <!-- Translated text -->
+            </div>
+            <!-- <button class="btn btn-outline-primary" type="button">Buy Now</button> -->
+        </div>
+    </nav>
+    <div class="container-xxl">
+        <div class="authentication-wrapper authentication-basic container-p-y">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% block body %}
+            {% endblock body %}
+        </div>
+    </div>
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="/static/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/static/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/static/assets/vendor/js/bootstrap.js"></script>
+    <script src="/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/static/assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="/static/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="/static/assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="/static/assets/js/dashboards-analytics.js"></script>
+
+</body>
+
+</html>
